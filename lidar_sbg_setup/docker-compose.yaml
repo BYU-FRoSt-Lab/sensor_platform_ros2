@@ -1,0 +1,17 @@
+services:
+  ouster_lidar_sbg:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ouster_lidar_sbg:latest
+    container_name: ouster_lidar_sbg
+    volumes:
+      - ../bags:/root/bags:rw
+      - ../config:/root/config/:rw
+    environment:
+      RCUTILS_COLORIZED_OUTPUT: 1 # Allows launch files to print colored text
+    stdin_open: true # Keeps the container running even if it's not attached to a terminal. 
+    tty: true # outuputs the terminal for the container, allowing you to interact with it.
+    network_mode: host # Uses the host's network stack, which is useful for ROS
+    restart: always
+    

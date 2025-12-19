@@ -1,0 +1,5 @@
+repositories:
+  nmea_gpsd:
+    type: git
+    url: git@github.com:BYU-FRoSt-Lab/nmea_gpsd.git
+    version: main

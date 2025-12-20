@@ -14,13 +14,19 @@ RUN apt-get update && apt-get install -y \
 
 
 # TODO remove below or just add to another dockerfile
-
 # Additional helpful tools
 RUN apt-get update && apt-get install -y \
     netcat \
     net-tools \
     iputils-ping \
     && rm -rf /var/lib/apt/lists/*
+
+# GPSD and clients  ####### TODO merge with other apt install later
+# RUN apt-get update && apt-get install -y \
+#     gpsd \
+#     gpsd-clients \
+#     chrony \
+#     && rm -rf /var/lib/apt/lists/*
 
 
 RUN mkdir -p /root/ros2_ws/src

@@ -1,7 +1,9 @@
 import os
+from pathlib import Path
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument
+from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription
+from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
 
@@ -20,6 +22,26 @@ def generate_launch_description():
         '/root',
         'config',
         'nmea_gpsd_params.yaml'
+    )
+	ouster_config = os.path.join(
+		'/root',
+		'config',
+		'lidar_driver_params.yaml'
+	)
+
+	ouster_ros_pkg_dir = get_package_share_directory('ouster_ros')
+
+	driver_launch_file_path = \
+        Path(ouster_ros_pkg_dir) / 'launch' / 'driver.launch.py'
+    
+	driver_launch = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource([str(driver_launch_file_path)]),
+        launch_arguments={
+            'params_file': ouster_config,
+            'ouster_ns': '',
+            'os_driver_name': 'ouster_driver',
+            'viz': 'False'
+        }.items()
     )
 
 	return LaunchDescription([
@@ -45,6 +67,7 @@ def generate_launch_description():
             name='ntrip_client',
             namespace=LaunchConfiguration('namespace'),
             parameters=[ntrip_config],
-        )
+        ),
+		driver_launch
 		
 	])

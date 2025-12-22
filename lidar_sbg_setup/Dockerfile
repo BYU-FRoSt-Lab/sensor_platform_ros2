@@ -22,11 +22,11 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # GPSD and clients  ####### TODO merge with other apt install later
-# RUN apt-get update && apt-get install -y \
-#     gpsd \
-#     gpsd-clients \
-#     chrony \
-#     && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y \
+    gpsd \
+    gpsd-clients \
+    chrony \
+    && rm -rf /var/lib/apt/lists/*
 
 
 RUN mkdir -p /root/ros2_ws/src

@@ -107,6 +107,10 @@ sudo systemctl status ptp4l
 curl -i -X GET http://<lidar_ip_address>/api/v1/time/ptp
 ```
 
+```
+curl -i -X GET http://10.42.0.28/api/v1/time/ptp
+```
+
 The device should report an active PTP lock and synchronized time.
 
 ---
@@ -141,11 +145,23 @@ If any step fails, verify that all upstream components are correctly synchronize
 
 ### 1. Mount the drive
 
+Check for drive then mount it with -t flag if not not sda1.
+
+
 ```bash
-bash scripts/mount_drive.sh
+lsblk -f # look for drive
+
+bash scripts/mount_drive.sh # -t /dev/sdb1
 ```
 
-### 2. Record data
+### 2. Check the time sync
+
+```bash
+bash scripts/monitor_topics.sh
+
+```
+
+### 3. Record data
 
 ```bash
 bash scripts/record.sh
@@ -154,7 +170,7 @@ Enter the name of the folder
 This will copy the config folder into the bag once the recording is complete
 
 
-### 3. Unmount the drive
+### 4. Unmount the drive
 
 ```bash
 bash scripts/mount_drive.sh -u

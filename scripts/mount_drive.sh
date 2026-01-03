@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Default values
-MOUNT_POINT="/mnt/ssd"
+MOUNT_POINT="/home/pi5/sensor_platform_ros2/bags/ssd"
 DEVICE="/dev/sda1"
 ACTION="mount"
 
